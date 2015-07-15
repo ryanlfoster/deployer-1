@@ -5,7 +5,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.text.MessageFormat;
 
@@ -26,11 +25,13 @@ public class StartupPlugin extends AbstractDeployerPlugin {
             if (tomcat != null) {
                 final Tomcat.Version tomcatVersion = tomcat.getResolvedVersion();
                 String startTomcatCmd;
-                if (!StringUtils.isEmpty(tomcat.getTomcatPath())) {
+                /*if (!StringUtils.isEmpty(tomcat.getTomcatPath())) {
                     startTomcatCmd = MessageFormat.format("{0}/bin/catalina.sh start", tomcat.getTomcatPath());
                 } else {
                     startTomcatCmd = MessageFormat.format("service {0} start", tomcatVersion.getService());
-                }
+                }*/
+
+                startTomcatCmd = MessageFormat.format("service {0} start", tomcatVersion.getService());
                 getLog().info("Execute command: " + startTomcatCmd);
                 exec.execute(startTomcatCmd);
                 getLog().info("Waiting for server startup");
