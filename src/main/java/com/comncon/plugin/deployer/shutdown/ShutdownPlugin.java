@@ -5,7 +5,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.codehaus.plexus.util.StringUtils;
 
 import java.text.MessageFormat;
 
@@ -27,12 +26,12 @@ public class ShutdownPlugin extends AbstractDeployerPlugin {
         try {
             if (tomcat != null) {
                 final Tomcat.Version tomcatVersion = tomcat.getResolvedVersion();
-                String stopTomcatCmd;
-                if (!StringUtils.isEmpty(tomcat.getTomcatPath())) {
+                /*if (!StringUtils.isEmpty(tomcat.getTomcatPath())) {
                     stopTomcatCmd = MessageFormat.format("{0}/bin/catalina.sh stop", tomcat.getTomcatPath());
                 } else {
                     stopTomcatCmd = MessageFormat.format("service {0} stop", tomcatVersion.getService());
-                }
+                }*/
+                final String stopTomcatCmd = MessageFormat.format("service {0} stop", tomcatVersion.getService());
                 getLog().info("Execute command: " + stopTomcatCmd);
                 exec.execute(stopTomcatCmd);
                 getLog().info("Waiting " + delay + " seconds...");
