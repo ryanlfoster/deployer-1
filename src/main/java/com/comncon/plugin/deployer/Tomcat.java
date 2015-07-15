@@ -20,6 +20,8 @@ public class Tomcat {
     public Version getResolvedVersion() throws MojoExecutionException {
         if (StringUtils.isEmpty(version)) {
             return DEFAULT_VERSION;
+        } else if ("tomcat8".equals(version)) {
+            return Version.TOMCAT_8;
         } else if ("tomcat7".equals(version)) {
             return Version.TOMCAT_7;
         } else if ("tomcat6".equals(version)) {
@@ -35,8 +37,8 @@ public class Tomcat {
 
     public enum Version {
         TOMCAT_6("tomcat6", "/var/lib/tomcat6"),
-        TOMCAT_7("tomcat7", "/var/lib/tomcat6"),
-        TOMCAT_8("tomcat8", "/var/lib/tomcat6");
+        TOMCAT_7("tomcat7", "/var/lib/tomcat7"),
+        TOMCAT_8("tomcat8", "/var/lib/tomcat8");
 
         private final String service;
         private final String directory;
